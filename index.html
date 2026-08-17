@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mark Anthony Daño | Full Stack Developer Portfolio</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Mark Anthony Daño - BSIT Student & Full Stack Developer from Cavite State University. Specializing in web development, IT operations, and system design.">
+  <meta name="keywords" content="Mark Anthony Daño, Full Stack Developer, BSIT, Cavite State University, Web Developer, IT Operations">
+  <meta name="author" content="Mark Anthony Daño">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Mark Anthony Daño | Full Stack Developer Portfolio">
+  <meta property="og:description" content="BSIT Student & Full Stack Developer specializing in web development and IT operations.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://markanthonydano.com">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mark Anthony Daño | Full Stack Developer">
+  <meta name="twitter:description" content="BSIT Student & Full Stack Developer from Cavite State University">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#F7FDF9;
+      --panel:#E8F5E9;
+      --primary:#66BB6A;
+      --primary-2:#81C784;
+      --text:#1F2933;
+      --muted:#388E3C;
+      --ring:rgba(102,187,106,.35);
+    }
+
+    html,body{overscroll-behavior:none}
+    body{font-family:Inter,sans-serif;color:var(--text)}
+
+    .bg-wash{
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(129,199,132,.35), transparent 60%),
+        radial-gradient(700px 450px at 85% 20%, rgba(232,245,233,.9), transparent 55%),
+        radial-gradient(800px 500px at 60% 95%, rgba(102,187,106,.2), transparent 55%),
+        var(--bg);
+    }
+
+    .tab-btn{
+      padding:.5rem 1.25rem;
+      border-radius:999px;
+      font-size:.875rem;
+      font-weight:600;
+      background:var(--panel);
+      border:1px solid rgba(0,0,0,.05);
+    }
+
+    .tab-btn.active{
+      background:var(--primary);
+      color:white;
+    }
+
+    /* Dark Mode */
+    .dark{
+      --bg:#0F172A;
+      --panel:#1E293B;
+      --primary:#66BB6A;
+      --primary-2:#4CAF50;
+      --text:#F1F5F9;
+      --muted:#86EFAC;
+      --ring:rgba(102,187,106,.35);
+    }
+
+    .dark .bg-wash{
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(102,187,106,.12), transparent 60%),
+        radial-gradient(700px 450px at 85% 20%, rgba(30,41,59,.9), transparent 55%),
+        radial-gradient(800px 500px at 60% 95%, rgba(102,187,106,.08), transparent 55%),
+        var(--bg);
+    }
+
+    /* Smooth Transitions */
+    *{transition:background-color .3s ease, color .3s ease, border-color .3s ease;}
+
+    /* Animations */
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    @keyframes pulse-ring{0%{box-shadow:0 0 0 0 var(--ring)}100%{box-shadow:0 0 0 20px transparent}}
+
+    .animate-fadeIn{animation:fadeIn .6s ease-out forwards}
+    .animate-slideIn{animation:slideIn .6s ease-out forwards}
+    .animate-float{animation:float 3s ease-in-out infinite}
+
+    /* Card Hover Effects */
+    .card-hover{transition:transform .3s ease, box-shadow .3s ease}
+    .card-hover:hover{transform:translateY(-4px);box-shadow:0 20px 40px -10px rgba(0,0,0,.15)}
+
+    /* Scroll Progress Bar */
+    #scroll-progress{
+      position:fixed;
+      top:0;
+      left:0;
+      height:3px;
+      background:var(--primary);
+      width:0%;
+      z-index:100;
+      transition:width .1s ease;
+    }
+
+    /* Gradient Text */
+    .gradient-text{
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+
+    /* Scroll to Top Button */
+    #scroll-top{
+      position:fixed;
+      bottom:2rem;
+      right:2rem;
+      width:3rem;
+      height:3rem;
+      border-radius:50%;
+      background:var(--primary);
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .3s ease, transform .3s ease;
+      z-index:50;
+      font-size:1.5rem;
+      font-weight:bold;
+    }
+
+    #scroll-top.show{opacity:1;pointer-events:auto}
+    #scroll-top:hover{transform:translateY(-3px)}
+
+    /* Modal */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,.7);
+      z-index:1000;
+      align-items:center;
+      justify-content:center;
+      backdrop-filter:blur(5px);
+    }
+
+    .modal.show{display:flex}
+
+    .modal-content{
+      background:var(--bg);
+      border-radius:1.5rem;
+      max-width:900px;
+      max-height:90vh;
+      overflow-y:auto;
+      margin:1rem;
+      animation:fadeIn .3s ease-out;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar{width:10px}
+    ::-webkit-scrollbar-track{background:var(--panel)}
+    ::-webkit-scrollbar-thumb{background:var(--primary);border-radius:5px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--primary-2)}
+
+    /* Skill Bar Animation */
+    .skill-bar{
+      height:8px;
+      background:var(--panel);
+      border-radius:999px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .skill-fill{
+      height:100%;
+      background:var(--primary);
+      border-radius:999px;
+      transition:width 1s ease;
+      width:0;
+    }
+
+    /* Number Counter */
+    .counter{font-variant-numeric:tabular-nums}
+
+    /* Print Styles */
+    @media print{
+      header,.tab-btn,#scroll-top,#theme-toggle{display:none}
+      .tab-section{display:block!important}
+    }
+  </style>
+</head>
+
+<body class="bg-wash">
+
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress"></div>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 backdrop-blur bg-[#F7FDF9] dark:bg-[#0F172A] border-b border-black/10 dark:border-white/10">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 animate-float">
+        <span class="text-sm font-semibold">💻</span>
+      </span>
+      <div class="leading-tight">
+        <div class="text-sm font-semibold text-[color:var(--primary)]">Mark Anthony Daño</div>
+        <div class="text-xs text-[color:var(--muted)]">BSIT • Full Stack Developer</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <!-- Dark Mode Toggle -->
+      <button id="theme-toggle" 
+              class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 hover:bg-[color:var(--primary)] hover:text-white transition"
+              aria-label="Toggle dark mode">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6">
+
+<!-- HERO -->
+<section class="pt-12 sm:pt-16 pb-10">
+  <div class="grid lg:grid-cols-12 gap-8 items-center">
+
+    <div class="lg:col-span-7 animate-fadeIn">
+      <div class="inline-flex items-center gap-2 rounded-full border border-black/5 dark:border-white/5 bg-[color:var(--panel)] px-3 py-1 text-xs text-[color:var(--muted)]">
+        <span class="h-2 w-2 rounded-full bg-[color:var(--primary)] animate-pulse"></span>
+        Open for Work • BSIT Graduate
+      </div>
+
+      <h1 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+        <span class="gradient-text">Hello, World!</span>
+      </h1>
+
+      <p class="mt-4 text-[color:var(--muted)] text-base sm:text-lg leading-relaxed">
+        I'm <span class="font-semibold text-[color:var(--text)]">Mark Anthony Daño</span>,
+        a graduate of BS Information Technology from Cavite State University – Indang Campus (August 27, 2026).
+        With hands-on experience in developing web-based systems, database management, and troubleshooting.
+      </p>
+
+      <!-- Stats Counter -->
+      <div class="mt-6 grid grid-cols-3 gap-4">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-[color:var(--primary)] counter" data-target="4">0</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1">Years Study</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-[color:var(--primary)] counter" data-target="3">0</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1">Projects</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-[color:var(--primary)] counter" data-target="5">0</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1">Tech Stack</div>
+        </div>
+      </div>
+
+      <!-- TECH STACK -->
+      <div class="mt-6 flex flex-wrap gap-2 text-xs text-[color:var(--muted)]">
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">HTML</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">CSS</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">TailwindCSS</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">JavaScript</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">PHP</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">Python</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">MySQL</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">Figma</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">Shopify</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">Liquid</span>
+        <span class="px-3 py-1 rounded-full bg-[color:var(--panel)] border border-black/5 dark:border-white/5">Canva</span>
+      </div>
+
+      <!-- TOGGLE BUTTONS -->
+      <div class="mt-8 flex gap-3 flex-wrap">
+        <button class="tab-btn active" data-tab="about">About</button>
+        <button class="tab-btn" data-tab="projects">Projects</button>
+        <button class="tab-btn" data-tab="experience">Experience</button>
+        <button class="tab-btn" data-tab="contact">Contact</button>
+      </div>
+    </div>
+
+    <!-- QUICK INFO -->
+    <div class="lg:col-span-5 animate-slideIn">
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 shadow-sm card-hover">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-sm font-semibold">Quick Info</div>
+            <div class="text-xs text-[color:var(--muted)] mt-1">Fast scan for recruiters</div>
+          </div>
+          <div class="h-10 w-10 rounded-2xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 flex items-center justify-center text-lg">
+            📍
+          </div>
+        </div>
+
+        <div class="mt-5 grid gap-3 text-sm">
+          <div class="flex justify-between">
+            <span class="text-[color:var(--muted)]">Location</span>
+            <span>Dasmariñas City, Cavite</span>
+          </div>
+          <div class="h-px bg-black/5 dark:bg-white/5"></div>
+          <div class="flex justify-between">
+            <span class="text-[color:var(--muted)]">Focus</span>
+            <span class="text-right">IT Ops • Support • Web Dev</span>
+          </div>
+          <div class="h-px bg-black/5 dark:bg-white/5"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[color:var(--muted)]">Email</span>
+            <button onclick="copyEmail()" class="flex items-center gap-1 hover:text-[color:var(--primary)] transition text-xs">
+              <span>danomarkanthony30@gmail.com</span>
+              <span id="copy-icon-quick">📋</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="tab-section py-10 sm:py-14">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="text-2xl sm:text-3xl font-bold">About</h2>
+  </div>
+
+  <div class="mt-6 grid lg:grid-cols-12 gap-6">
+    <div class="lg:col-span-7 rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+      <p class="text-[color:var(--muted)] leading-relaxed">
+        Bachelor of Science in Information Technology (BSIT) graduate from Cavite State University – Indang Campus with hands-on experience in developing web-based systems. Skilled in basic system development, database management, and troubleshooting. Demonstrates strong problem-solving abilities and adaptability, with a willingness to learn and contribute to efficient IT operations and technical support.
+      </p>
+
+      <div class="mt-5 grid sm:grid-cols-2 gap-3 text-sm">
+        <div class="rounded-2xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 p-4">
+          <div class="font-semibold">💪 Strengths</div>
+          <div class="mt-1 text-[color:var(--muted)]">
+            Problem-solving, adaptability, consistency
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 p-4">
+          <div class="font-semibold">🎯 Goal</div>
+          <div class="mt-1 text-[color:var(--muted)]">
+            IT Operations / Technical Support / Web Development
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="mt-6">
+        <div class="font-semibold mb-4">⚡ Technical Skills</div>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>HTML/CSS/JavaScript</span>
+              <span class="text-[color:var(--muted)]">90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-width="90"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>PHP/MySQL</span>
+              <span class="text-[color:var(--muted)]">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-width="85"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>Tailwind CSS</span>
+              <span class="text-[color:var(--muted)]">80%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-width="80"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>System Design</span>
+              <span class="text-[color:var(--muted)]">75%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-width="75"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>Python</span>
+              <span class="text-[color:var(--muted)]">50%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-width="50"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 space-y-6">
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+        <div class="font-semibold">🎓 Education</div>
+        <div class="mt-2 text-sm text-[color:var(--muted)]">
+          Cavite State University – Indang Campus (Main)
+        </div>
+        <div class="text-sm font-medium mt-1">
+          BS Information Technology
+        </div>
+        <div class="text-xs text-[color:var(--primary)] mt-1 font-semibold">
+          🎖️ Magna Cum Laude • August 27, 2026
+        </div>
+
+        <div class="mt-6 font-semibold">✨ Highlights</div>
+        <ul class="mt-2 space-y-2 text-sm text-[color:var(--muted)]">
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[color:var(--primary)]"></span>
+            Magna Cum Laude Graduate
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[color:var(--primary)]"></span>
+            Web-based system development
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[color:var(--primary)]"></span>
+            Basic programming and databases (project-based)
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[color:var(--primary)]"></span>
+            Working student throughout college
+          </li>
+        </ul>
+      </div>
+
+      <!-- Timeline -->
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+        <div class="font-semibold mb-4">📅 Timeline</div>
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="h-3 w-3 rounded-full bg-[color:var(--primary)]"></div>
+              <div class="w-px h-full bg-[color:var(--primary)] opacity-30"></div>
+            </div>
+            <div class="pb-4 text-sm">
+              <div class="font-medium">Aug 2026</div>
+              <div class="text-[color:var(--muted)] text-xs">Graduated BSIT • Magna Cum Laude</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="h-3 w-3 rounded-full bg-[color:var(--primary)] opacity-50"></div>
+              <div class="w-px h-full bg-[color:var(--primary)] opacity-20"></div>
+            </div>
+            <div class="pb-4 text-sm">
+              <div class="font-medium">2025</div>
+              <div class="text-[color:var(--muted)] text-xs">Capstone Project • eBalota</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="h-3 w-3 rounded-full bg-[color:var(--primary)] opacity-30"></div>
+            <div class="text-sm">
+              <div class="font-medium">2021</div>
+              <div class="text-[color:var(--muted)] text-xs">Started BSIT Program</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="tab-section hidden py-10 sm:py-14">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="text-2xl sm:text-3xl font-bold">Projects</h2>
+    <div class="text-sm text-[color:var(--muted)]">Click for details</div>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="mt-6 flex flex-wrap gap-2">
+    <button class="filter-btn active px-4 py-2 rounded-full text-sm border border-black/5 dark:border-white/5 bg-[color:var(--primary)] text-white" data-filter="all">
+      All Projects
+    </button>
+    <button class="filter-btn px-4 py-2 rounded-full text-sm border border-black/5 dark:border-white/5 bg-[color:var(--panel)]" data-filter="web">
+      Web Dev
+    </button>
+    <button class="filter-btn px-4 py-2 rounded-full text-sm border border-black/5 dark:border-white/5 bg-[color:var(--panel)]" data-filter="system">
+      Systems
+    </button>
+  </div>
+
+  <div class="mt-6 grid md:grid-cols-2 gap-4" id="projects-grid">
+    <div class="project-card card-hover group md:col-span-2 rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 cursor-pointer" 
+         data-category="system web"
+         onclick="openProjectModal('ebalota')">
+      <div class="flex items-start justify-between">
+        <div class="text-xs text-[color:var(--muted)] bg-[color:var(--panel)] px-3 py-1 rounded-full">Capstone</div>
+        <div class="text-2xl">🗳️</div>
+      </div>
+      <div class="text-lg font-semibold mt-3">eBalota</div>
+      <p class="mt-2 text-sm text-[color:var(--muted)]">
+        Web-based e-voting system for Cavite State University – Indang Campus
+        designed for secure and transparent university elections.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">PHP</span>
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">MySQL</span>
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">JavaScript</span>
+      </div>
+      <div class="mt-4 text-sm text-[color:var(--primary)] group-hover:underline">View Details →</div>
+    </div>
+
+    <div class="project-card card-hover group md:col-span-2 rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 cursor-pointer"
+         data-category="system web"
+         onclick="openProjectModal('bliss')">
+      <div class="flex items-start justify-between">
+        <div class="text-xs text-[color:var(--muted)] bg-[color:var(--panel)] px-3 py-1 rounded-full">Freelance</div>
+        <div class="text-2xl">🍽️</div>
+      </div>
+      <div class="text-lg font-semibold mt-3">
+        Bliss Bistro & Social Reservation System
+      </div>
+      <p class="mt-2 text-sm text-[color:var(--muted)]">
+        Online reservation system for a bistro and social restaurant
+        (Sanford, Florida) to manage bookings and reservation records.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">PHP</span>
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">MySQL</span>
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">Bootstrap</span>
+      </div>
+      <div class="mt-4 text-sm text-[color:var(--primary)] group-hover:underline">View Details →</div>
+    </div>
+
+    <div class="project-card card-hover group md:col-span-2 rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 cursor-pointer"
+         data-category="system"
+         onclick="openProjectModal('gpl')">
+      <div class="flex items-start justify-between">
+        <div class="text-xs text-[color:var(--muted)] bg-[color:var(--panel)] px-3 py-1 rounded-full">Internship</div>
+        <div class="text-2xl">💰</div>
+      </div>
+      <div class="text-lg font-semibold mt-3">
+        GPL Trading OPC Payroll System
+      </div>
+      <p class="mt-2 text-sm text-[color:var(--muted)]">
+        An automated payroll system developed to streamline employee payroll processing, salary computation, attendance tracking, and payroll report generation.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">PHP</span>
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">MySQL</span>
+        <span class="text-xs px-2 py-1 rounded-md bg-[color:var(--panel)] text-[color:var(--muted)]">JavaScript</span>
+      </div>
+      <div class="mt-4 text-sm text-[color:var(--primary)] group-hover:underline">View Details →</div>
+    </div>
+  </div>
+</section>
+
+<!-- Project Modal -->
+<div id="project-modal" class="modal">
+  <div class="modal-content border border-black/5 dark:border-white/5">
+    <div class="sticky top-0 bg-[color:var(--bg)] border-b border-black/5 dark:border-white/5 p-6 flex justify-between items-center">
+      <h3 class="text-xl font-bold" id="modal-title">Project Title</h3>
+      <button onclick="closeProjectModal()" class="text-2xl hover:text-[color:var(--primary)] transition">✕</button>
+    </div>
+    <div class="p-6" id="modal-body">
+      <!-- Content populated by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<!-- WORK EXPERIENCE -->
+<section id="experience" class="tab-section hidden py-10 sm:py-14">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="text-2xl sm:text-3xl font-bold">Work Experience</h2>
+    <div class="text-sm text-[color:var(--muted)]">My professional journey</div>
+  </div>
+
+  <div class="mt-6 grid lg:grid-cols-12 gap-6">
+    <div class="lg:col-span-8 space-y-4">
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-lg font-semibold">GPL Trading OPC</div>
+            <div class="text-sm text-[color:var(--primary)]">Payroll System Developer & Technical Support Intern</div>
+            <div class="text-xs text-[color:var(--muted)] mt-1">Feb. 2026 - May 2026</div>
+          </div>
+          <div class="text-2xl">💰</div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-lg font-semibold">Bliss Bistro & Social Restaurant</div>
+            <div class="text-sm text-[color:var(--primary)]">Freelance Website Developer</div>
+            <div class="text-xs text-[color:var(--muted)] mt-1">Jan. 2026</div>
+          </div>
+          <div class="text-2xl">🍽️</div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-lg font-semibold">Freelance Encoder (Will Shanon)</div>
+            <div class="text-sm text-[color:var(--primary)]">Data Encoder</div>
+            <div class="text-xs text-[color:var(--muted)] mt-1">Dec. 2025</div>
+          </div>
+          <div class="text-2xl">⌨️</div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-lg font-semibold">Red Ribbon Bakeshop Inc.</div>
+            <div class="text-sm text-[color:var(--primary)]">Food Service Crew & Managerial Works</div>
+            <div class="text-xs text-[color:var(--muted)] mt-1">Dec. 2021 - Dec. 2025</div>
+          </div>
+          <div class="text-2xl">🍰</div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-lg font-semibold">Landsquare Marketing Corporation</div>
+            <div class="text-sm text-[color:var(--primary)]">Real Estate Agent</div>
+            <div class="text-xs text-[color:var(--muted)] mt-1">Jan. 2021 - June 2021</div>
+          </div>
+          <div class="text-2xl">🏠</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-4">
+      <div class="rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover sticky top-20">
+        <div class="font-semibold mb-4">📅 Timeline</div>
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="h-3 w-3 rounded-full bg-[color:var(--primary)]"></div>
+              <div class="w-px h-full bg-[color:var(--primary)] opacity-30"></div>
+            </div>
+            <div class="pb-4 text-sm">
+              <div class="font-medium">2026</div>
+              <div class="text-[color:var(--muted)] text-xs">GPL Trading • Bliss Bistro</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="h-3 w-3 rounded-full bg-[color:var(--primary)] opacity-50"></div>
+              <div class="w-px h-full bg-[color:var(--primary)] opacity-20"></div>
+            </div>
+            <div class="pb-4 text-sm">
+              <div class="font-medium">2025</div>
+              <div class="text-[color:var(--muted)] text-xs">Freelance Encoder</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="h-3 w-3 rounded-full bg-[color:var(--primary)] opacity-50"></div>
+              <div class="w-px h-full bg-[color:var(--primary)] opacity-20"></div>
+            </div>
+            <div class="pb-4 text-sm">
+              <div class="font-medium">2023</div>
+              <div class="text-[color:var(--muted)] text-xs">Red Ribbon Part-time</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="h-3 w-3 rounded-full bg-[color:var(--primary)] opacity-50"></div>
+              <div class="w-px h-full bg-[color:var(--primary)] opacity-20"></div>
+            </div>
+            <div class="pb-4 text-sm">
+              <div class="font-medium">2021</div>
+              <div class="text-[color:var(--muted)] text-xs">Red Ribbon • Landsquare</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="h-3 w-3 rounded-full bg-[color:var(--primary)] opacity-30"></div>
+            <div class="text-sm">
+              <div class="font-medium">2021</div>
+              <div class="text-[color:var(--muted)] text-xs">Started Career</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="tab-section hidden py-10 sm:py-14 pb-16">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="text-2xl sm:text-3xl font-bold">Contact</h2>
+    <div class="text-sm text-[color:var(--muted)]">Let's connect!</div>
+  </div>
+
+  <div class="mt-6 grid lg:grid-cols-12 gap-6">
+    <div class="lg:col-span-7 rounded-3xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] backdrop-blur p-6 card-hover">
+      <div class="text-sm text-[color:var(--muted)] mb-4">📧 Get in Touch</div>
+
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <a href="https://mail.google.com/mail/?view=cm&to=danomarkanthony30@gmail.com" target="_blank"
+             class="inline-flex items-center gap-2 rounded-xl px-5 py-3 font-semibold text-sm
+             bg-[color:var(--primary)] text-white hover:opacity-90 transition">
+            ✉️ Email Me
+          </a>
+
+          <button onclick="copyEmail()" 
+                  class="inline-flex items-center gap-2 rounded-xl px-5 py-3 font-semibold text-sm
+                  border border-black/5 dark:border-white/5 bg-[color:var(--panel)] hover:bg-[color:var(--panel)] transition">
+            📋 <span id="copy-text">Copy Email</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 text-sm text-[color:var(--muted)]">
+          <span>📱</span>
+          <span>0991-542-7882</span>
+        </div>
+
+        <div class="pt-4 border-t border-black/5 dark:border-white/5">
+          <div class="text-sm font-semibold mb-3">Social Links</div>
+          <div class="flex gap-3">
+            <a href="https://github.com/Maki-Maki99" target="_blank" 
+               class="flex items-center gap-2 px-4 py-2 rounded-xl border border-black/5 dark:border-white/5 bg-[color:var(--panel)] hover:bg-[color:var(--primary)] hover:text-white transition text-sm">
+              <span>🐙</span> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 rounded-3xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 p-6 card-hover">
+      <div class="font-semibold mb-4">💡 Quick Info</div>
+      <div class="space-y-3 text-sm">
+        <div class="rounded-xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 px-4 py-3">
+          <div class="text-[color:var(--muted)] text-xs mb-1">Email</div>
+          <div class="font-medium">danomarkanthony30@gmail.com</div>
+        </div>
+        <div class="rounded-xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 px-4 py-3">
+          <div class="text-[color:var(--muted)] text-xs mb-1">Phone</div>
+          <div class="font-medium">0991-542-7882</div>
+        </div>
+        <div class="rounded-xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 px-4 py-3">
+          <div class="text-[color:var(--muted)] text-xs mb-1">Location</div>
+          <div class="font-medium">Dasmariñas City, Cavite</div>
+        </div>
+        <div class="rounded-xl bg-[color:var(--panel)] border border-black/5 dark:border-white/5 px-4 py-3">
+          <div class="text-[color:var(--muted)] text-xs mb-1">Availability</div>
+          <div class="font-medium flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+            Open for Job Opportunities
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-black/10 dark:border-white/10 bg-[#F7FDF9] dark:bg-[#0F172A] mt-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-[color:var(--muted)]">
+      <div>
+        © 2026 Mark Anthony Daño. Built with passion & caffeine ☕
+      </div>
+      <div class="flex gap-4">
+        <a href="#about" class="hover:text-[color:var(--primary)] transition">Privacy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to Top Button -->
+<div id="scroll-top" onclick="scrollToTop()">
+  ↑
+</div>
+
+<script src="./js/main.js"></script>
+</body>
+</html>

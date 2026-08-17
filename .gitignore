@@ -1,0 +1,13 @@
+# Logs
+*.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*-old.*
+
+# Personal files (don't commit these)
+resume.pdf
